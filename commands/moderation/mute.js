@@ -28,6 +28,7 @@ module.exports = class Mute extends Command {
             const muteMember = interaction.options.getMember('member');
             const reason = interaction.options.getString('reason') || 'No Reason Provided';
             const time = interaction.options.getString('time') ? parseTime(interaction.options.getString('time')) : 0;
+            const server = interaction.channel.id;
 
             if (time === null) return interaction.reply(`**Please Enter Time In This Format!\n\n\`\`\`css\n1s, 1m, 1h, 1d, 1w, 1month, 1y\`\`\`**`);
             if (!muteMember) return interaction.reply("**User Is Not In The Server**");
@@ -65,11 +66,12 @@ module.exports = class Mute extends Command {
 
             if (muteMember.roles.cache.has(muterole.id)) return interaction.editReply("**User Is Already Muted!**");
             
-            let mutedMemberFetched = await MuteList.findOne({ ID: muteMember.user.id });
+            let mutedMemberFetched = await MuteList.findOne({ ID: muteMember.user.id, server: server });
 
             if (!mutedMemberFetched) {
                 mutedMemberFetched = await MuteList.create({
                     ID: muteMember.user.id,
+                    server: server,
                     name: muteMember.user.username,
                     roles: userRoles,
                     time: time !== 0 ? time : 0,

@@ -8,6 +8,10 @@ const MyMuteListSchema = new Schema({
             unique: true
         }
     },
+    server: {
+        type: String,
+        required: true
+    },
     name: {
         type: String,
         required: true

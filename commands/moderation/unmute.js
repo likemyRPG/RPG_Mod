@@ -22,6 +22,8 @@ module.exports = class Unmute extends Command {
             if (!interaction.member.permissions.has("MANAGE_GUILD")) return interaction.reply("**You Dont Have Permmissions To Unmute Someone!**");
             if (!interaction.guild.me.permissions.has("MANAGE_GUILD")) return interaction.reply("**I Don't Have Permissions To Unmute Someone!**");
 
+            const server = interaction.channel.id;
+
             const muteMember = interaction.options.getMember('member');
             if (!muteMember) return interaction.reply("**User Is Not In The Server**");
             if (muteMember === interaction.member) return interaction.reply("**You Cannot Mute Yourself!**");
@@ -29,7 +31,7 @@ module.exports = class Unmute extends Command {
             let muterole = interaction.guild.roles.cache.find(role => role.name.toLowerCase() === "muted");
             if (!muteMember.roles.cache.has(muterole.id)) return interaction.reply("**User Is Not Muted!**");
 
-            const muteMemberFetched = await MuteList.findOne({ ID: muteMember.user.id });
+            const muteMemberFetched = await MuteList.findOne({ ID: muteMember.user.id, server: server });
             if (muteMember.roles.cache.has(muterole.id) && !muteMemberFetched) {
                 muteMember.roles.remove(muterole);
 
@@ -46,7 +48,7 @@ module.exports = class Unmute extends Command {
                         let role = interaction.guild.roles.cache.get(roleID);
                         muteMember.roles.add(role);
                     };
-                    await MuteList.deleteOne({ ID: muteMember.user.id });
+                    await MuteList.deleteOne({ ID: muteMember.user.id, server: server });
 
                     const unmuteEmbed = new MessageEmbed()
                         .setColor('WHITE')
