@@ -2,7 +2,7 @@ const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
 
 
-module.exports = class Ban extends Command {
+module.exports = class Slowmode extends Command {
     constructor(...args) {
         super(...args, {
             name: 'slowmode',
