@@ -26,7 +26,6 @@ module.exports = class Ban extends Command {
             const confirmEmbed = new MessageEmbed()
             .setColor("WHITE")
             .setTitle('Slowmode set to ' + duration)
-            .setFooter(this.bot.user.username, this.bot.user.displayAvatarURL())
             .setTimestamp();
         return interaction.reply({ embeds: [confirmEmbed]});
         } catch (error) {
