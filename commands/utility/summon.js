@@ -30,7 +30,6 @@ module.exports = class Summon extends Command {
             if (voice){
                 let user = await interaction.member.fetch();
                 channel = await user.voice.channel;
-                console.log(channel);
                 const notInVoiceChannelEmbed = new MessageEmbed()
                 .setDescription('You are not in a voice channel!')
                 .setColor('RED')
