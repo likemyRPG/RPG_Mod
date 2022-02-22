@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command');
-const { MessageEmbed, Integration } = require('discord.js');
+const { MessageEmbed } = require('discord.js');
 
 module.exports = class Summon extends Command {
     constructor(...args) {
@@ -20,6 +20,7 @@ module.exports = class Summon extends Command {
     async interactionRun(interaction) {
         try {
             let channel;
+            const author = this.bot.users.cache.get(interaction.member.user.id);
             const member = interaction.options.getMember('member');
             if (!member) return interaction.reply('**Member Not Found!**');
             if (member === interaction.member) return interaction.reply(`**You can't summon yourself!**`)
@@ -56,7 +57,7 @@ module.exports = class Summon extends Command {
                 const embed = new MessageEmbed()
                 .setColor('WHITE')
                 .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
-                .setDescription(`**Hello, You Have Been Summoned By ${interaction.author} To The Server ${interaction.guild.name}.**`)
+                .setDescription(`**Hello, You Have Been Summoned By ${author} To The Server ${interaction.guild.name}.**`)
                 .addField(`Accept`, `[**REQUEST**](${invite})`, true)
                 .addField(`Type Of Channel`, voice ? `\`Voice Channel\``: `\`Text Channel\``, true)
                 .setFooter(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))
