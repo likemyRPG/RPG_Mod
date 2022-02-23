@@ -20,7 +20,7 @@ module.exports = class Unban extends Command {
             if (!interaction.member.permissions.has("BAN_MEMBERS")) return interaction.reply("**You Don't Have The Permission To Unban Users!**");
             if (!interaction.guild.me.permissions.has("BAN_MEMBERS")) return interaction.reply("**I Don't Have The Permission To Unban Users!**");
 
-            const userID = interaction.options.getUser('member');
+            const userID = interaction.options.getString('member');
             let bannedMember;
             
             try {
