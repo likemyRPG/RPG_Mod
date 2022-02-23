@@ -11,7 +11,7 @@ module.exports = class Unban extends Command {
             accessableby: 'Administrators',
             slashCommand: true,
             commandOptions: [
-                { name: 'member', type: 'USER', description: 'Member to Unban', required: true },
+                { name: 'member', type: 'STRING', description: 'Member to Unban', required: true },
             ]
         });
     };
