@@ -62,3 +62,5 @@ typings/
 
 /.vscode/
 commands/utility/screenshot.js
+commands/moderation/nickname.js
+commands/moderation/addrole.js
