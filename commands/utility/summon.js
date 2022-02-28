@@ -22,8 +22,8 @@ module.exports = class Summon extends Command {
             let channel;
             const author = this.bot.users.cache.get(interaction.member.user.id);
             const member = interaction.options.getMember('member');
-            if (!member) return interaction.reply('**Member Not Found!**');
-            if (member === interaction.member) return interaction.reply(`**You can't summon yourself!**`)
+            if (!member) return interaction.reply({ content: `**Member not found**`, ephemeral: true });
+            if (member === interaction.member) return interaction.reply({ content: `**You can't summon yourself!**`, ephemeral: true })
 
             var voice = interaction.options.getBoolean('voice') || false;
 
@@ -33,7 +33,7 @@ module.exports = class Summon extends Command {
                 const notInVoiceChannelEmbed = new MessageEmbed()
                 .setDescription('You are not in a voice channel!')
                 .setColor('RED')
-                if(!channel) return interaction.reply({ embeds: [notInVoiceChannelEmbed], ephemeral: true });
+                if(channel === null) return interaction.reply({ embeds: [notInVoiceChannelEmbed], ephemeral: true });
             }
 
             if(!channel) channel = interaction.channel;
