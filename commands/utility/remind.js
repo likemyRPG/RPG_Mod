@@ -413,7 +413,7 @@ module.exports = class Remind extends Command {
                     let description = '';
 
                     for (let i in reminders) {
-                        description += `ID - #${reminders[i].ID} | Time - ${new Date(reminders[i].timeInMS).toLocaleTimeString([], { timeZone: 'IST' })} | Reminder - ${reminders[i].reason}${reminders[i].daily ? ' | Daily Reminder' : ` | Reminds On - <t:${Math.floor(reminders[i].timeInMS / 1000)}:D>`}\n`;
+                        description += `ID - #${reminders[i].ID} | Time - ${new Date(reminders[i].timeInMS).toLocaleTimeString([], { timeZone: 'UTC +1' })} | Reminder - ${reminders[i].reason}${reminders[i].daily ? ' | Daily Reminder' : ` | Reminds On - <t:${Math.floor(reminders[i].timeInMS / 1000)}:D>`}\n`;
                     };
 
                     const reminderListEmbed = new MessageEmbed()
@@ -430,7 +430,7 @@ module.exports = class Remind extends Command {
                     const reminderListEmbed = new MessageEmbed()
                         .setAuthor(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))
                         .setColor('WHITE')
-                        .setDescription(`ID - #${reminder.ID} | Time - ${new Date(reminder.timeInMS).toLocaleTimeString([], { timeZone: 'IST' })} | Reminder - ${reminder.reason}${reminder.daily ? ' | Daily Reminder' : ` | Reminds On - <t:${Math.floor(reminder.timeInMS / 1000)}:D>`}\n`)
+                        .setDescription(`ID - #${reminder.ID} | Time - ${new Date(reminder.timeInMS).toLocaleTimeString([], { timeZone: 'UTC +1' })} | Reminder - ${reminder.reason}${reminder.daily ? ' | Daily Reminder' : ` | Reminds On - <t:${Math.floor(reminder.timeInMS / 1000)}:D>`}\n`)
                         .setFooter(`Reminder List For ${interaction.user.username}`, interaction.user.displayAvatarURL({ dynamic: true }))
                         .setTimestamp();
                     return interaction.reply({ embeds: [reminderListEmbed] });
