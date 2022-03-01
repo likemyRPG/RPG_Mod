@@ -61,6 +61,6 @@ typings/
 .env
 
 /.vscode/
-commands/utility/screenshot.js
-commands/moderation/nickname.js
-commands/moderation/addrole.js
+commands/fun/wyr.js
+pictures/wyr.png
+structures/models/Questions.json

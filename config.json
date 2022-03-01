@@ -1,5 +1,7 @@
 {
     "PREFIX": "/",
     "owners": ["295284210820841472"],
-    "botname": "RPG"
+    "botname": "RPG",
+    "bugchannel": "947927627547680808",
+    "errorMessage": "Something went wrong! Pls report it by using the command `/bug`"
 }

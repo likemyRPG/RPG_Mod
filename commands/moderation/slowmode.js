@@ -1,5 +1,7 @@
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json');
+
 
 
 module.exports = class Slowmode extends Command {
@@ -30,7 +32,7 @@ module.exports = class Slowmode extends Command {
         return interaction.reply({ embeds: [confirmEmbed]});
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

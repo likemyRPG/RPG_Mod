@@ -1,4 +1,6 @@
 const Command = require('../../structures/Command');
+const config = require('../../config.json');
+
 
 module.exports = class Ban extends Command {
     constructor(...args) {
@@ -48,7 +50,7 @@ module.exports = class Ban extends Command {
             }
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

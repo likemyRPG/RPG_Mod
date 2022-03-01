@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command');
 const { MessageEmbed } = require('discord.js');
+const config = require('../../config.json');
 
 module.exports = class Summon extends Command {
     constructor(...args) {
@@ -76,7 +77,7 @@ module.exports = class Summon extends Command {
             createInvite(interaction);
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

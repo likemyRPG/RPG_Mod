@@ -1,6 +1,7 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const { generateRandomHex } = require("../../structures/functions");
+const config = require('../../config.json');
 const RemindList = require("../../structures/models/RemindList");
 const buttonMonthOptions = [
     { customId: 'remind_Jan', value: 'January', maxDate: 31 }, { customId: 'remind_Feb', value: 'February', maxDate: 28, maxLeapYearDate: 29 },
@@ -438,7 +439,7 @@ module.exports = class Remind extends Command {
             };
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

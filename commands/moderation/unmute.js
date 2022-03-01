@@ -2,6 +2,8 @@ const Command = require('../../structures/Command');
 const MuteList = require('../../structures/models/MuteList');
 const { MessageEmbed } = require('discord.js');
 const { formatTime } = require('../../structures/functions');
+const config = require('../../config.json');
+
 
 module.exports = class Unmute extends Command {
     constructor(...args) {
@@ -92,7 +94,7 @@ module.exports = class Unmute extends Command {
             };
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

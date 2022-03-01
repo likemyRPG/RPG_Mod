@@ -1,6 +1,8 @@
 const Command = require("../../structures/Command");
 const { MessageEmbed } = require('discord.js');
 const { readdirSync } = require('fs')
+const config = require('../../config.json');
+
 
 module.exports = class Help extends Command {
     constructor(...args) {
@@ -62,7 +64,7 @@ module.exports = class Help extends Command {
             };
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

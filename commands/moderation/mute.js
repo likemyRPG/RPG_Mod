@@ -2,6 +2,8 @@ const Command = require('../../structures/Command');
 const MuteList = require('../../structures/models/MuteList');
 const { MessageEmbed } = require('discord.js');
 const { parseTime, formatTime, generateRandomHex } = require('../../structures/functions');
+const config = require('../../config.json');
+
 
 module.exports = class Mute extends Command {
     constructor(...args) {
@@ -170,7 +172,7 @@ module.exports = class Mute extends Command {
             if (logEmbedChannel) return logEmbedChannel.send({ embeds: [logEmbed] });
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };

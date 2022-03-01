@@ -33,7 +33,7 @@ module.exports = class Uptime extends Command {
             return interaction.reply({ embeds: [confirmEmbed], ephemeral: true });
         } catch (error) {
             console.error(error);
-            return interaction.reply(`An Error Occurred: \`${error.message}\`!`);
+            return interaction.reply({ content: config.errorMessage, ephemeral: true });
         };
     };
 };
