@@ -64,3 +64,11 @@ typings/
 commands/fun/wyr.js
 pictures/wyr.png
 structures/models/Questions.json
+commands/owner/status.js
+commands/utility/setwelcome.js
+events/guild/guildMemberAdd.js
+structures/models/BotConfig.js
+structures/models/WelcomeChannel.js
+events/guild/guildMemberAdd.js
+assets/images/welcome.png
+events/guild/guildMemberAdd.js

@@ -20,7 +20,7 @@ module.exports = class Summon extends Command {
 
     async interactionRun(interaction) {
         try {
-            let channel;
+            let channel = null;
             const author = this.bot.users.cache.get(interaction.member.user.id);
             const member = interaction.options.getMember('member');
             if (!member) return interaction.reply({ content: `**Member not found**`, ephemeral: true });
@@ -29,7 +29,7 @@ module.exports = class Summon extends Command {
             var voice = interaction.options.getBoolean('voice') || false;
 
             if (voice){
-                let user = await interaction.member.fetch();
+                let user = interaction.member;
                 channel = await user.voice.channel;
                 const notInVoiceChannelEmbed = new MessageEmbed()
                 .setDescription('You are not in a voice channel!')

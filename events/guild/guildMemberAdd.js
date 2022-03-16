@@ -17,7 +17,7 @@ module.exports = class guildMemberAdd extends Event {
                 await member.roles.add(muterole);
             };
 
-            const channel = member.guild.channels.cache.get('875932911516397598');
+            const channel = member.guild.channels.cache.get('945746193475072000');
             if (!channel) return;
 
             registerFont(path.join(__dirname, '..', '..', 'assets', 'fonts', 'Rubik.ttf'), { family: 'Rubik' });
@@ -25,7 +25,7 @@ module.exports = class guildMemberAdd extends Event {
 
             const canvas = createCanvas(800, 250);
             const ctx = canvas.getContext('2d');
-            const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'images', 'skyhigh.png'));
+            const background = await loadImage(path.join(__dirname, '..', '..', 'assets', 'images', 'welcome.png'));
 
             ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 

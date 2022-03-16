@@ -23,6 +23,8 @@ module.exports = class Slowmode extends Command {
         try {
             const duration = interaction.options.getInteger('duration');
 
+            if (!interaction.member.permissions.has("MANAGE_GUILD")) return interaction.reply({ content: "**You Don't Have The Permission To Do This!**", ephemeral: true });
+
             interaction.channel.setRateLimitPerUser(duration)
             
             const confirmEmbed = new MessageEmbed()
