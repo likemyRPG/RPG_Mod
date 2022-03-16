@@ -9,7 +9,7 @@ module.exports = class RPG extends Client {
             presence: {
                 status: 'online',
                 activities: [
-                    { name: 'Fear gives intelligence even to fools.', type: 'PLAYING' }
+                    { name: 'With My Life.', type: 'PLAYING' }
                 ]
             },
             intents: ['GUILDS', 'GUILD_MEMBERS', 'GUILD_MESSAGES']
