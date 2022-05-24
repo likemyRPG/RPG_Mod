@@ -1,6 +1,8 @@
 const Event = require('../../structures/Event');
 const { MessageEmbed } = require('discord.js');
 const RemindList = require("../../structures/models/RemindList");
+const cron = require('cron');
+const fetch = require('node-fetch');
 
 module.exports = class Ready extends Event {
 	constructor(...args) {
@@ -22,6 +24,16 @@ module.exports = class Ready extends Event {
 			console.log(`${this.bot.user.username} is Online!`);
 
 			const totalReminders = await RemindList.find({});
+
+			let scheduledMessage = new cron.CronJob('0 0 12 * * *', async () => {
+				const quote = await fetch('https://api.quotable.io/random').then(res => res.json());
+				const quoteEmbed = new MessageEmbed()
+					.setColor('WHITE')
+					.setTitle(`Quote of the Day`)
+					.setDescription(`${quote.content}\n\n- *${quote.author}*`)
+				this.bot.channels.cache.get('978799822884700220').send({ embeds: [quoteEmbed] });
+			});
+			scheduledMessage.start();
 
 			for (let i = 0; i < totalReminders.length; i++) {
                 const members = await this.bot.guilds.cache.get(totalReminders[i].GuildID).members.fetch();
