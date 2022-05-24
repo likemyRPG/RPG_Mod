@@ -26,19 +26,15 @@ module.exports = class Summon extends Command {
             if (!member) return interaction.reply({ content: `**Member not found**`, ephemeral: true });
             if (member === interaction.member) return interaction.reply({ content: `**You can't summon yourself!**`, ephemeral: true })
 
-            var voice = interaction.options.getBoolean('voice') || false;
-
-            if (voice){
-                let user = interaction.member;
-                channel = await user.voice.channel;
-                const notInVoiceChannelEmbed = new MessageEmbed()
-                .setDescription('You are not in a voice channel!')
-                .setColor('RED')
-                if(channel === null) return interaction.reply({ embeds: [notInVoiceChannelEmbed], ephemeral: true });
+            if (interaction.options.getBoolean('voice')){
+              channel = interaction.member.voice.channel;
+              const notInVoiceChannelEmbed = new MessageEmbed()
+              .setDescription('You are not in a voice channel!')
+              .setColor('RED')
+              if(channel === null) return interaction.reply({ embeds: [notInVoiceChannelEmbed], ephemeral: true });
+            } else {
+                channel = interaction.channel;
             }
-
-            if(!channel) channel = interaction.channel;
-
 
             async function createInvite(interaction) {
                 let invite = await channel
@@ -59,7 +55,7 @@ module.exports = class Summon extends Command {
                 .setAuthor(member.user.username, member.user.displayAvatarURL({ dynamic: true }))
                 .setDescription(`**Hello, You Have Been Summoned By ${author} To The Server ${interaction.guild.name}.**`)
                 .addField(`Accept`, `[**REQUEST**](${invite})`, true)
-                .addField(`Type Of Channel`, voice ? `\`Voice Channel\``: `\`Text Channel\``, true)
+                .addField(`Type Of Channel`, interaction.options.getBoolean('voice') ? `\`Voice Channel\``: `\`Text Channel\``, true)
                 .setFooter(interaction.guild.name, interaction.guild.iconURL({ dynamic: true }))
                 .setTimestamp();
               member.send({ embeds: [embed]})
