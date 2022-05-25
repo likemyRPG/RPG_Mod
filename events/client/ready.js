@@ -25,7 +25,7 @@ module.exports = class Ready extends Event {
 
 			const totalReminders = await RemindList.find({});
 
-			let scheduledMessage = new cron.CronJob('0 0 12 * * *', async () => {
+			let quoteOfTheDay = new cron.CronJob('0 20 2 * * *', async () => {
 				const quote = await fetch('https://api.quotable.io/random').then(res => res.json());
 				const quoteEmbed = new MessageEmbed()
 					.setColor('WHITE')
@@ -33,7 +33,35 @@ module.exports = class Ready extends Event {
 					.setDescription(`${quote.content}\n\n- *${quote.author}*`)
 				this.bot.channels.cache.get('978799822884700220').send({ embeds: [quoteEmbed] });
 			});
-			scheduledMessage.start();
+			quoteOfTheDay.start();
+			
+			let jokeOfTheDay = new cron.CronJob('0 20 2 * * *', async () => {
+				const joke = await fetch('https://sv443.net/jokeapi/v2/joke/Any').then(res => res.json());
+				const jokeEmbed = new MessageEmbed()
+					.setColor('WHITE')
+					.setTitle(`Joke of the Day`)
+					.setDescription(`${joke.type === 'single' ? "**" + joke.joke + "**" : "**" + joke.setup + "**" + '\n' + joke.delivery}`)
+				this.bot.channels.cache.get('978812392475611176').send({ embeds: [jokeEmbed] });
+			});
+			jokeOfTheDay.start();
+
+			let daily5Memes = new cron.CronJob('0 20 2 * * *', async () => {
+				const memes = await fetch('https://www.reddit.com/r/memes/top.json?t=day&limit=5').then(res => res.json());
+				const memeOverview = new MessageEmbed()
+					.setColor('WHITE')
+					.setTitle(`Top 5 memes of the day | ${new Date().toLocaleDateString()}`)
+					.setDescription(`${memes.data.children.map(meme => `[${meme.data.title}](${meme.data.url})`).join('\n')}`)
+				this.bot.channels.cache.get('978812616837304390').send({ embeds: [memeOverview] });
+				for(let i = 0; i < 5; i++) {
+				const memesEmbed = new MessageEmbed()
+					.setColor('WHITE')
+					.setTitle(`Place ${i + 1}`)
+					.setDescription(`[${memes.data.children[i].data.title}}](${memes.data.children[i].data.url})`)
+					.setImage(`${memes.data.children[i].data.url}`)
+				this.bot.channels.cache.get('978812616837304390').send({ embeds: [memesEmbed] });
+				};
+			});
+			daily5Memes.start();
 
 			for (let i = 0; i < totalReminders.length; i++) {
                 const members = await this.bot.guilds.cache.get(totalReminders[i].GuildID).members.fetch();
