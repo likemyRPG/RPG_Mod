@@ -25,7 +25,7 @@ module.exports = class Ready extends Event {
 
 			const totalReminders = await RemindList.find({});
 
-			let quoteOfTheDay = new cron.CronJob('0 30 2 * * *', async () => {
+			let quoteOfTheDay = new cron.CronJob('0 * * * * *', async () => {
 				const quote = await fetch('https://api.quotable.io/random').then(res => res.json());
 				const quoteEmbed = new MessageEmbed()
 					.setColor('WHITE')
@@ -35,7 +35,7 @@ module.exports = class Ready extends Event {
 			});
 			quoteOfTheDay.start();
 			
-			let jokeOfTheDay = new cron.CronJob('0 30 2 * * *', async () => {
+			let jokeOfTheDay = new cron.CronJob('0 * * * * *', async () => {
 				const joke = await fetch('https://sv443.net/jokeapi/v2/joke/Any').then(res => res.json());
 				const jokeEmbed = new MessageEmbed()
 					.setColor('WHITE')
@@ -45,7 +45,7 @@ module.exports = class Ready extends Event {
 			});
 			jokeOfTheDay.start();
 
-			let daily5Memes = new cron.CronJob('0 30 2 * * *', async () => {
+			let daily5Memes = new cron.CronJob('0 * * * * *', async () => {
 				const memes = await fetch('https://www.reddit.com/r/memes/top.json?t=day&limit=5').then(res => res.json());
 				const memeOverview = new MessageEmbed()
 					.setColor('WHITE')
